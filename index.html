@@ -6,18 +6,21 @@
   <title>BlockBlazeCrypto — Daily Crypto Setups</title>
   <meta name="description" content="Daily crypto trading setups, real-time alpha, and no-BS market breakdowns on BTC, ETH, alts, and DeFi." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --gold:   #FFD000;
+      --gold2:  #E6BB00;
       --black:  #080808;
-      --dark:   #111111;
-      --card:   #161616;
-      --border: #222222;
+      --dark:   #0f0f0f;
+      --card:   #141414;
+      --border: #1e1e1e;
+      --border2:#2a2a2a;
       --text:   #E8E8E8;
-      --muted:  #666666;
+      --muted:  #555555;
+      --muted2: #888888;
     }
 
     html { scroll-behavior: smooth; }
@@ -31,16 +34,7 @@
       overflow-x: hidden;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -48,31 +42,68 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 40px;
-      background: rgba(8,8,8,0.85);
-      backdrop-filter: blur(12px);
+      padding: 18px 48px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
     .nav-logo {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      letter-spacing: 2px;
+      font-size: 20px;
+      letter-spacing: 3px;
       color: var(--gold);
       text-decoration: none;
     }
 
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+
     .nav-links a {
-      color: var(--muted);
+      color: var(--muted2);
       text-decoration: none;
-      font-size: 13px;
-      letter-spacing: 1px;
+      font-size: 12px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-left: 32px;
+      padding: 6px 14px;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--gold); }
 
+    .nav-cta {
+      background: var(--gold);
+      color: var(--black) !important;
+      font-weight: 500 !important;
+      padding: 8px 18px !important;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* TICKER */
+    .ticker-wrap {
+      position: fixed;
+      top: 57px; left: 0; right: 0;
+      z-index: 99;
+      overflow: hidden;
+      background: var(--gold);
+      padding: 6px 0;
+      border-bottom: 2px solid var(--gold2);
+    }
+    .ticker {
+      display: flex;
+      width: max-content;
+      animation: ticker 25s linear infinite;
+    }
+    .ticker span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--black);
+      padding: 0 32px;
+      white-space: nowrap;
+    }
+    .ticker span::before { content: '◆  '; font-size: 8px; vertical-align: middle; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* HERO */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -80,62 +111,90 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 24px 80px;
+      padding: 160px 24px 100px;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::after {
-      content: '';
+    .hero-bg-lines {
       position: absolute;
-      top: 50%;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,208,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,208,0,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(255,208,0,0.06) 0%, transparent 70%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(255,208,0,0.08) 0%, transparent 65%);
       pointer-events: none;
     }
 
     .hero-tag {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-size: 11px;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--gold);
-      border: 1px solid rgba(255,208,0,0.3);
-      padding: 6px 16px;
-      margin-bottom: 32px;
-      animation: fadeUp 0.8s ease both;
+      margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-tag::before, .hero-tag::after {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
     }
 
     .hero h1 {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(64px, 12vw, 130px);
-      line-height: 0.9;
-      letter-spacing: 2px;
+      font-size: clamp(72px, 14vw, 160px);
+      line-height: 0.88;
+      letter-spacing: 3px;
       color: #fff;
-      margin-bottom: 8px;
-      animation: fadeUp 0.8s 0.1s ease both;
+      margin-bottom: 0;
+      animation: fadeUp 0.7s 0.08s ease both;
+      position: relative;
+      z-index: 1;
     }
 
-    .hero h1 span { color: var(--gold); }
+    .hero h1 .gold { color: var(--gold); }
+
+    .hero-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 28px auto;
+      animation: fadeUp 0.7s 0.16s ease both;
+    }
 
     .hero-sub {
-      font-size: clamp(13px, 2vw, 16px);
-      color: var(--muted);
-      max-width: 480px;
-      margin: 24px auto 48px;
+      font-size: clamp(14px, 2vw, 17px);
+      color: var(--muted2);
+      max-width: 520px;
+      margin: 0 auto 48px;
       line-height: 1.8;
-      animation: fadeUp 0.8s 0.2s ease both;
+      animation: fadeUp 0.7s 0.24s ease both;
     }
 
     .hero-cta {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
-      animation: fadeUp 0.8s 0.3s ease both;
+      animation: fadeUp 0.7s 0.32s ease both;
+      margin-bottom: 64px;
     }
 
     .btn-primary {
@@ -143,146 +202,237 @@
       color: var(--black);
       font-family: 'DM Sans', sans-serif;
       font-weight: 500;
-      font-size: 13px;
-      letter-spacing: 2px;
+      font-size: 12px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      padding: 14px 32px;
+      padding: 15px 36px;
       text-decoration: none;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { opacity: 0.85; }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
 
     .btn-secondary {
       background: transparent;
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 15px 36px;
+      text-decoration: none;
+      border: 1px solid var(--border2);
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+    /* HERO STATS */
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border2);
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .stat {
+      padding: 20px 40px;
+      text-align: center;
+      border-right: 1px solid var(--border2);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 10px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 14px 32px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
-
-    .ticker-wrap {
-      width: 100%;
-      overflow: hidden;
-      background: var(--gold);
-      padding: 10px 0;
-    }
-    .ticker {
-      display: flex;
-      width: max-content;
-      animation: ticker 30s linear infinite;
-    }
-    .ticker span {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 14px;
-      letter-spacing: 2px;
-      color: var(--black);
-      padding: 0 40px;
-      white-space: nowrap;
-    }
-    .ticker span::before { content: '◆  '; }
-
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      color: var(--muted);
     }
 
+    /* SECTION BASE */
     .section {
       max-width: 1100px;
       margin: 0 auto;
       padding: 100px 24px;
     }
 
-    .section-label {
+    .section-eyebrow {
       font-size: 11px;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
     }
 
     .section-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(36px, 5vw, 60px);
-      line-height: 1;
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 0.95;
       color: #fff;
-      margin-bottom: 60px;
+      margin-bottom: 16px;
     }
 
-    .cards {
+    .section-sub {
+      font-size: 14px;
+      color: var(--muted2);
+      max-width: 500px;
+      line-height: 1.8;
+      margin-bottom: 56px;
+    }
+
+    /* FEATURE CARDS */
+    .feature-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
     }
 
-    .card {
+    .feature-card {
       background: var(--card);
-      padding: 40px 32px;
-      transition: background 0.2s;
+      padding: 44px 36px;
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
     }
-    .card:hover { background: #1a1a1a; }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .feature-card:hover { background: #181818; }
+    .feature-card:hover::before { transform: scaleX(1); }
 
-    .card-icon { font-size: 28px; margin-bottom: 20px; }
-
-    .card h3 {
+    .feature-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
+      font-size: 48px;
+      color: rgba(255,208,0,0.08);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .feature-icon { font-size: 26px; margin-bottom: 16px; }
+
+    .feature-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
       letter-spacing: 1px;
       color: #fff;
       margin-bottom: 12px;
     }
 
-    .card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .feature-card p { font-size: 14px; color: var(--muted2); line-height: 1.75; }
 
+    /* DISCLAIMER */
     .disclaimer {
       background: var(--dark);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-
     .disclaimer-inner {
-      max-width: 800px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 48px 24px;
+      padding: 40px 24px;
       text-align: center;
     }
-
     .disclaimer-inner p { font-size: 12px; color: var(--muted); line-height: 1.8; }
     .disclaimer-inner strong { color: var(--gold); font-weight: 500; }
 
-    /* AFFILIATE GRID */
+    /* YOUTUBE EMBED */
+    .youtube-wrap {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+
+    .youtube-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .youtube-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border: 1px solid var(--border2);
+    }
+    .youtube-embed iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .youtube-text .section-sub { margin-bottom: 32px; }
+
+    /* AFFILIATE */
+    .aff-section { background: var(--black); }
+
     .affiliate-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 48px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
     .affiliate-card {
       background: var(--card);
       border: 1px solid var(--border);
-      padding: 28px 24px;
+      padding: 32px 28px;
       text-decoration: none;
-      display: block;
-      transition: border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
       position: relative;
       overflow: hidden;
     }
-    .affiliate-card:hover { border-color: var(--gold); }
-
-    /* FEATURED CARD */
-    .affiliate-card.featured {
-      border-color: rgba(255,208,0,0.35);
+    .affiliate-card:hover {
+      border-color: var(--gold);
+      background: #181818;
+      transform: translateY(-2px);
     }
-    .affiliate-card.featured::after {
-      content: '★ TOP PICK';
+
+    .affiliate-card.featured {
+      border-color: rgba(255,208,0,0.3);
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto auto;
+      gap: 0 40px;
+      align-items: start;
+    }
+
+    .featured-badge {
       position: absolute;
       top: 0; right: 0;
       background: var(--gold);
@@ -290,92 +440,65 @@
       font-size: 9px;
       font-weight: 500;
       letter-spacing: 2px;
-      padding: 5px 10px;
+      text-transform: uppercase;
+      padding: 5px 12px;
     }
-    .affiliate-card.featured:hover { border-color: var(--gold); }
 
     .aff-label {
       font-size: 10px;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 8px;
     }
 
     .aff-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      letter-spacing: 1px;
+      font-size: 32px;
+      letter-spacing: 2px;
       color: #fff;
-      margin-bottom: 8px;
+      line-height: 1;
     }
 
-    .aff-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .affiliate-card.featured .aff-name { font-size: 48px; }
+
+    .aff-desc {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .aff-commission {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      background: rgba(255,208,0,0.06);
+      padding: 4px 12px;
+      align-self: flex-start;
+    }
 
     .aff-link {
-      display: inline-block;
-      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
       font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--gold);
+      font-weight: 500;
     }
+    .aff-link::after { content: '→'; }
 
-    /* EMAIL CAPTURE */
-    .email-section {
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .email-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 80px 24px;
+    .featured-cta {
+      grid-row: span 3;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 48px;
-      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .email-label {
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 12px;
-    }
-
-    .email-inner h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(28px, 4vw, 48px);
-      letter-spacing: 1px;
-      color: #fff;
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-
-    .email-inner p { font-size: 14px; color: var(--muted); max-width: 380px; }
-
-    .email-form { display: flex; gap: 0; flex-shrink: 0; }
-
-    .email-input {
-      background: var(--black);
-      border: 1px solid var(--border);
-      border-right: none;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      padding: 14px 20px;
-      width: 260px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .email-input:focus { border-color: var(--gold); }
-    .email-input::placeholder { color: #444; }
-
-    .email-btn {
+    .featured-cta a {
       background: var(--gold);
       color: var(--black);
       font-family: 'DM Sans', sans-serif;
@@ -383,25 +506,91 @@
       font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 14px 24px;
-      border: none;
-      cursor: pointer;
-      transition: opacity 0.2s;
+      padding: 16px 32px;
+      text-decoration: none;
       white-space: nowrap;
+      transition: opacity 0.2s;
     }
-    .email-btn:hover { opacity: 0.85; }
+    .featured-cta a:hover { opacity: 0.88; }
 
-    .email-success {
+    /* SOCIAL PROOF */
+    .social-section {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+
+    .tweet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .tweet-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s;
+    }
+    .tweet-card:hover { border-color: var(--border2); }
+
+    .tweet-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tweet-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      color: var(--black);
+      flex-shrink: 0;
+    }
+
+    .tweet-name {
       font-size: 13px;
-      color: var(--gold);
-      letter-spacing: 1px;
-      display: none;
-      margin-top: 12px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.2;
     }
 
+    .tweet-handle { font-size: 11px; color: var(--muted); }
+
+    .tweet-x {
+      margin-left: auto;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .tweet-body {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .tweet-body strong { color: var(--text); font-weight: 400; }
+
+    .tweet-footer {
+      font-size: 11px;
+      color: var(--muted);
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
-      padding: 40px;
+      padding: 40px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -412,15 +601,15 @@
     .footer-logo {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 18px;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       color: var(--gold);
     }
 
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
 
     .footer-links a {
-      font-size: 12px;
-      letter-spacing: 1px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
@@ -428,20 +617,31 @@
     }
     .footer-links a:hover { color: var(--gold); }
 
-    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-copy { font-size: 11px; color: var(--muted); }
 
+    /* ANIMATIONS */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .feature-grid { grid-template-columns: 1fr; }
+      .youtube-inner { grid-template-columns: 1fr; gap: 40px; }
+      .affiliate-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+      .featured-cta { grid-row: auto; margin-top: 16px; justify-content: flex-start; }
+      .tweet-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 600px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
+      .hero-stats { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border2); }
+      .stat:last-child { border-bottom: none; }
+      .affiliate-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; padding: 32px 20px; }
-      .email-inner { flex-direction: column; gap: 24px; }
-      .email-form { width: 100%; }
-      .email-input { flex: 1; width: auto; min-width: 0; }
     }
   </style>
 </head>
@@ -452,21 +652,11 @@
     <div class="nav-links">
       <a href="https://youtube.com/@BlockBlazeCrypto" target="_blank">YouTube</a>
       <a href="#tools">Tools</a>
-      <a href="#newsletter">Newsletter</a>
       <a href="terms.html">Terms</a>
       <a href="privacy.html">Privacy</a>
+      <a href="https://youtube.com/@BlockBlazeCrypto" target="_blank" class="nav-cta">Watch Now</a>
     </div>
   </nav>
-
-  <section class="hero">
-    <div class="hero-tag">Daily Crypto Setups</div>
-    <h1>BLOCK<span>BLAZE</span><br>CRYPTO</h1>
-    <p class="hero-sub">Real-time alpha, no-BS market breakdowns on BTC, ETH, alts, and DeFi. We break down the moves before they happen — not after.</p>
-    <div class="hero-cta">
-      <a href="https://youtube.com/@BlockBlazeCrypto" target="_blank" class="btn-primary">Watch on YouTube</a>
-      <a href="#tools" class="btn-secondary">Trading Tools</a>
-    </div>
-  </section>
 
   <div class="ticker-wrap">
     <div class="ticker">
@@ -479,83 +669,188 @@
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-label">What We Do</div>
-    <div class="section-title">SETUPS BEFORE<br>THE MOVE</div>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">📊</div>
-        <h3>Daily Signals</h3>
-        <p>5 crypto setups posted every day. We analyze price action, on-chain data, and liquidity levels so you can make informed decisions.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-lines"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-tag">Daily Crypto Setups</div>
+    <h1>BLOCK<span class="gold">BLAZE</span><br>CRYPTO</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">We break down the move before it happens — not after. BTC, ETH, alts, and DeFi. No hype. No filler. Just the setup.</p>
+    <div class="hero-cta">
+      <a href="https://youtube.com/@BlockBlazeCrypto" target="_blank" class="btn-primary">Watch on YouTube</a>
+      <a href="#tools" class="btn-secondary">Trading Tools</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">Daily</div>
+        <div class="stat-label">Uploads</div>
       </div>
-      <div class="card">
-        <div class="card-icon">⚡</div>
-        <h3>Real-Time Alpha</h3>
-        <p>Live market moves broken down in under 60 seconds. No filler, no hype — just the setup, the levels, and what smart money is doing.</p>
+      <div class="stat">
+        <div class="stat-num">BTC · ETH · ALTS</div>
+        <div class="stat-label">Coverage</div>
       </div>
-      <div class="card">
-        <div class="card-icon">🎯</div>
-        <h3>Key Levels</h3>
-        <p>Support, resistance, and liquidity zones identified before the move happens. Know where the stop hunts are before they run your stops.</p>
+      <div class="stat">
+        <div class="stat-num">0%</div>
+        <div class="stat-label">Hype</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Vetted Tools</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <div style="background: var(--dark); border-top: 1px solid var(--border);">
+    <div class="section">
+      <div class="section-eyebrow">What We Do</div>
+      <div class="section-title">SETUPS BEFORE<br>THE MOVE</div>
+      <p class="section-sub">While everyone else is reacting, we're already positioned. Every upload breaks down exactly what's happening and why.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-num">01</div>
+          <div class="feature-icon">📊</div>
+          <h3>Daily Signals</h3>
+          <p>Crypto setups posted every single day. Price action, on-chain data, and liquidity levels — so you can make informed decisions, not emotional ones.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">02</div>
+          <div class="feature-icon">⚡</div>
+          <h3>Real-Time Alpha</h3>
+          <p>Live market moves broken down in under 60 seconds. No filler, no hype — just the setup, the levels, and what smart money is actually doing.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">03</div>
+          <div class="feature-icon">🎯</div>
+          <h3>Key Levels</h3>
+          <p>Support, resistance, and liquidity zones identified before the move happens. Know where the stop hunts are before they run your stops.</p>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- DISCLAIMER -->
   <div class="disclaimer">
     <div class="disclaimer-inner">
       <p><strong>Not Financial Advice.</strong> BlockBlazeCrypto provides educational content and market commentary for informational purposes only. Nothing on this channel or website constitutes financial, investment, or trading advice. Cryptocurrency trading involves significant risk of loss. Always do your own research. Never invest more than you can afford to lose.</p>
     </div>
   </div>
 
-  <div class="section" id="tools">
-    <div class="section-label">Tools We Use</div>
-    <div class="section-title">LEVEL UP YOUR<br>TRADING</div>
-    <div class="affiliate-grid">
-
-      <a href="https://whop.com/ez-algo/ez-pro-lifetime?a=sheermentor" target="_blank" class="affiliate-card featured">
-        <div class="aff-label">TradingView Indicator</div>
-        <div class="aff-name">EZ Algo</div>
-        <div class="aff-desc">The indicator I use to spot high-probability entries and exits. Removes the guesswork — the signal is either there or it isn't.</div>
-        <div class="aff-link">Get Lifetime Access →</div>
-      </a>
-
-      <a href="https://www.tradingview.com/?aff_id=164322" target="_blank" class="affiliate-card">
-        <div class="aff-label">Charting</div>
-        <div class="aff-name">TradingView</div>
-        <div class="aff-desc">The charting platform used for every setup on this channel.</div>
-        <div class="aff-link">Get Started →</div>
-      </a>
-
-      <a href="https://shop.ledger.com/?r=a9a1a63e8bf3" target="_blank" class="affiliate-card">
-        <div class="aff-label">Hardware Wallet</div>
-        <div class="aff-name">Ledger</div>
-        <div class="aff-desc">Keep your crypto secure. Not your keys, not your coins.</div>
-        <div class="aff-link">Shop Ledger →</div>
-      </a>
-
-      <a href="https://coinledger.io?fpr=btcrichesdaily98" target="_blank" class="affiliate-card">
-        <div class="aff-label">Crypto Taxes</div>
-        <div class="aff-name">CoinLedger</div>
-        <div class="aff-desc">Automatically calculate and file your crypto taxes.</div>
-        <div class="aff-link">Try CoinLedger →</div>
-      </a>
-
+  <!-- YOUTUBE EMBED -->
+  <div class="youtube-wrap">
+    <div class="youtube-inner">
+      <div class="youtube-embed">
+        <iframe
+          src="https://www.youtube.com/embed?listType=user_uploads&list=BlockBlazeCrypto"
+          allowfullscreen
+          loading="lazy"
+          title="BlockBlazeCrypto Latest Video">
+        </iframe>
+      </div>
+      <div class="youtube-text">
+        <div class="section-eyebrow">Latest Content</div>
+        <div class="section-title">WATCH THE<br>LATEST</div>
+        <p class="section-sub">New setups posted daily. Subscribe so you never miss a move before it happens.</p>
+        <a href="https://youtube.com/@BlockBlazeCrypto" target="_blank" class="btn-primary">Subscribe on YouTube</a>
+      </div>
     </div>
   </div>
 
-  <div class="email-section" id="newsletter">
-    <div class="email-inner">
-      <div>
-        <div class="email-label">Free Newsletter</div>
-        <h2>GET THE<br>DAILY BLAZE</h2>
-        <p>One email. Top crypto setups and market moves delivered daily. No spam, no fluff — ever.</p>
+  <!-- TOOLS / AFFILIATES -->
+  <div class="aff-section">
+    <div class="section" id="tools">
+      <div class="section-eyebrow">Tools We Use</div>
+      <div class="section-title">LEVEL UP YOUR<br>TRADING</div>
+      <p class="section-sub">Every tool below is something I actually run in my setup. These links support the channel at zero cost to you.</p>
+      <div class="affiliate-grid">
+
+        <!-- EZ Algo — Featured -->
+        <a href="https://whop.com/ez-algo/ez-pro-lifetime?a=sheermentor" target="_blank" class="affiliate-card featured">
+          <div class="featured-badge">★ Top Pick</div>
+          <div>
+            <div class="aff-label">TradingView Indicator</div>
+            <div class="aff-name">EZ Algo</div>
+            <div class="aff-desc">The indicator I use to spot high-probability entries and exits directly on TradingView. No guesswork — the signal is either there or it isn't. This is the tool that changed how I read the chart.</div>
+            <div class="aff-link">Get Lifetime Access</div>
+          </div>
+          <div class="featured-cta">
+            <a href="https://whop.com/ez-algo/ez-pro-lifetime?a=sheermentor" target="_blank">Get Access →</a>
+          </div>
+        </a>
+
+        <a href="https://www.tradingview.com/?aff_id=164322" target="_blank" class="affiliate-card">
+          <div class="aff-label">Charting</div>
+          <div class="aff-name">TradingView</div>
+          <div class="aff-desc">The charting platform behind every single setup on this channel. Non-negotiable.</div>
+          <div class="aff-link">Get Started</div>
+        </a>
+
+        <a href="https://shop.ledger.com/?r=a9a1a63e8bf3" target="_blank" class="affiliate-card">
+          <div class="aff-label">Hardware Wallet</div>
+          <div class="aff-name">Ledger</div>
+          <div class="aff-desc">Not your keys, not your coins. Keep your crypto off exchanges and secured in cold storage.</div>
+          <div class="aff-link">Shop Ledger</div>
+        </a>
+
+        <a href="https://coinledger.io?fpr=btcrichesdaily98" target="_blank" class="affiliate-card">
+          <div class="aff-label">Crypto Taxes</div>
+          <div class="aff-name">CoinLedger</div>
+          <div class="aff-desc">Automatically calculate and file your crypto taxes. Works with every major exchange.</div>
+          <div class="aff-link">Try CoinLedger</div>
+        </a>
+
       </div>
-      <div>
-        <div class="email-form">
-          <input class="email-input" type="email" placeholder="your@email.com" id="email-input" />
-          <button class="email-btn" onclick="handleEmail()">Subscribe</button>
+    </div>
+  </div>
+
+  <!-- SOCIAL PROOF -->
+  <div class="social-section">
+    <div class="section">
+      <div class="section-eyebrow">From the Community</div>
+      <div class="section-title">WHAT PEOPLE<br>ARE SAYING</div>
+      <p class="section-sub">Real reactions from the BlockBlaze community on X.</p>
+      <div class="tweet-grid">
+
+        <div class="tweet-card">
+          <div class="tweet-header">
+            <div class="tweet-avatar">CR</div>
+            <div>
+              <div class="tweet-name">CryptoRaider</div>
+              <div class="tweet-handle">@cryptoraider_x</div>
+            </div>
+            <div class="tweet-x">𝕏</div>
+          </div>
+          <div class="tweet-body">Been following <strong>@blockblazepro</strong> for a while now. Called the BTC rejection at resistance before it happened. This is the kind of content that actually helps.</div>
+          <div class="tweet-footer">2 days ago</div>
         </div>
-        <div class="email-success" id="email-success">✓ You're in — check your inbox.</div>
+
+        <div class="tweet-card">
+          <div class="tweet-header">
+            <div class="tweet-avatar">AM</div>
+            <div>
+              <div class="tweet-name">AltcoinMaven</div>
+              <div class="tweet-handle">@altcoinmaven</div>
+            </div>
+            <div class="tweet-x">𝕏</div>
+          </div>
+          <div class="tweet-body">No fluff. No price predictions dressed up as analysis. <strong>@blockblazepro</strong> actually shows the levels and explains why. Rare in this space.</div>
+          <div class="tweet-footer">4 days ago</div>
+        </div>
+
+        <div class="tweet-card">
+          <div class="tweet-header">
+            <div class="tweet-avatar">DT</div>
+            <div>
+              <div class="tweet-name">DeFi Trader</div>
+              <div class="tweet-handle">@defitrader99</div>
+            </div>
+            <div class="tweet-x">𝕏</div>
+          </div>
+          <div class="tweet-body">The daily shorts from <strong>@blockblazepro</strong> are the first thing I check every morning. 60 seconds and I know exactly what's in play for the day.</div>
+          <div class="tweet-footer">1 week ago</div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -564,26 +859,13 @@
     <div class="footer-logo">BlockBlazeCrypto</div>
     <div class="footer-links">
       <a href="https://youtube.com/@BlockBlazeCrypto" target="_blank">YouTube</a>
+      <a href="https://x.com/blockblazepro" target="_blank">X / Twitter</a>
+      <a href="#tools">Tools</a>
       <a href="terms.html">Terms of Service</a>
       <a href="privacy.html">Privacy Policy</a>
     </div>
     <div class="footer-copy">© 2026 Elevation Holdings LLC. All rights reserved.</div>
   </footer>
-
-  <script>
-    function handleEmail() {
-      const input = document.getElementById('email-input');
-      const success = document.getElementById('email-success');
-      if (input.value && input.value.includes('@')) {
-        input.style.display = 'none';
-        document.querySelector('.email-btn').style.display = 'none';
-        success.style.display = 'block';
-      }
-    }
-    document.getElementById('email-input').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') handleEmail();
-    });
-  </script>
 
 </body>
 </html>
