@@ -31,7 +31,6 @@
       overflow-x: hidden;
     }
 
-    /* NOISE OVERLAY */
     body::before {
       content: '';
       position: fixed;
@@ -42,7 +41,6 @@
       opacity: 0.4;
     }
 
-    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -75,7 +73,6 @@
     }
     .nav-links a:hover { color: var(--gold); }
 
-    /* HERO */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -169,7 +166,6 @@
     }
     .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* TICKER */
     .ticker-wrap {
       width: 100%;
       overflow: hidden;
@@ -196,7 +192,6 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* FEATURES */
     .section {
       max-width: 1100px;
       margin: 0 auto;
@@ -234,10 +229,7 @@
     }
     .card:hover { background: #1a1a1a; }
 
-    .card-icon {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
+    .card-icon { font-size: 28px; margin-bottom: 20px; }
 
     .card h3 {
       font-family: 'Bebas Neue', sans-serif;
@@ -247,13 +239,8 @@
       margin-bottom: 12px;
     }
 
-    .card p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-    /* DISCLAIMER */
     .disclaimer {
       background: var(--dark);
       border-top: 1px solid var(--border);
@@ -267,18 +254,10 @@
       text-align: center;
     }
 
-    .disclaimer-inner p {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
+    .disclaimer-inner p { font-size: 12px; color: var(--muted); line-height: 1.8; }
+    .disclaimer-inner strong { color: var(--gold); font-weight: 500; }
 
-    .disclaimer-inner strong {
-      color: var(--gold);
-      font-weight: 500;
-    }
-
-    /* AFFILIATE */
+    /* AFFILIATE GRID */
     .affiliate-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -293,10 +272,29 @@
       text-decoration: none;
       display: block;
       transition: border-color 0.2s;
+      position: relative;
+      overflow: hidden;
     }
     .affiliate-card:hover { border-color: var(--gold); }
 
-    .affiliate-card .aff-label {
+    /* FEATURED CARD */
+    .affiliate-card.featured {
+      border-color: rgba(255,208,0,0.35);
+    }
+    .affiliate-card.featured::after {
+      content: '★ TOP PICK';
+      position: absolute;
+      top: 0; right: 0;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      padding: 5px 10px;
+    }
+    .affiliate-card.featured:hover { border-color: var(--gold); }
+
+    .aff-label {
       font-size: 10px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -304,7 +302,7 @@
       margin-bottom: 8px;
     }
 
-    .affiliate-card .aff-name {
+    .aff-name {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 24px;
       letter-spacing: 1px;
@@ -312,12 +310,9 @@
       margin-bottom: 8px;
     }
 
-    .affiliate-card .aff-desc {
-      font-size: 13px;
-      color: var(--muted);
-    }
+    .aff-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-    .affiliate-card .aff-link {
+    .aff-link {
       display: inline-block;
       margin-top: 16px;
       font-size: 11px;
@@ -326,14 +321,91 @@
       color: var(--gold);
     }
 
-    /* FOOTER */
-    footer {
+    /* EMAIL CAPTURE */
+    .email-section {
+      background: var(--dark);
       border-top: 1px solid var(--border);
-      padding: 40px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .email-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: gap;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .email-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .email-inner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: 1px;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .email-inner p { font-size: 14px; color: var(--muted); max-width: 380px; }
+
+    .email-form { display: flex; gap: 0; flex-shrink: 0; }
+
+    .email-input {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      padding: 14px 20px;
+      width: 260px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-input:focus { border-color: var(--gold); }
+    .email-input::placeholder { color: #444; }
+
+    .email-btn {
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .email-btn:hover { opacity: 0.85; }
+
+    .email-success {
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      display: none;
+      margin-top: 12px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 16px;
     }
 
@@ -344,11 +416,7 @@
       color: var(--gold);
     }
 
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
 
     .footer-links a {
       font-size: 12px;
@@ -360,12 +428,8 @@
     }
     .footer-links a:hover { color: var(--gold); }
 
-    .footer-copy {
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .footer-copy { font-size: 12px; color: var(--muted); }
 
-    /* ANIMATIONS */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -375,6 +439,9 @@
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
       footer { flex-direction: column; text-align: center; padding: 32px 20px; }
+      .email-inner { flex-direction: column; gap: 24px; }
+      .email-form { width: 100%; }
+      .email-input { flex: 1; width: auto; min-width: 0; }
     }
   </style>
 </head>
@@ -384,6 +451,8 @@
     <a href="/" class="nav-logo">BlockBlazeCrypto</a>
     <div class="nav-links">
       <a href="https://youtube.com/@BlockBlazeCrypto" target="_blank">YouTube</a>
+      <a href="#tools">Tools</a>
+      <a href="#newsletter">Newsletter</a>
       <a href="terms.html">Terms</a>
       <a href="privacy.html">Privacy</a>
     </div>
@@ -442,24 +511,52 @@
     <div class="section-label">Tools We Use</div>
     <div class="section-title">LEVEL UP YOUR<br>TRADING</div>
     <div class="affiliate-grid">
+
+      <a href="https://whop.com/ez-algo/ez-pro-lifetime?a=sheermentor" target="_blank" class="affiliate-card featured">
+        <div class="aff-label">TradingView Indicator</div>
+        <div class="aff-name">EZ Algo</div>
+        <div class="aff-desc">The indicator I use to spot high-probability entries and exits. Removes the guesswork — the signal is either there or it isn't.</div>
+        <div class="aff-link">Get Lifetime Access →</div>
+      </a>
+
       <a href="https://www.tradingview.com/?aff_id=164322" target="_blank" class="affiliate-card">
         <div class="aff-label">Charting</div>
         <div class="aff-name">TradingView</div>
         <div class="aff-desc">The charting platform used for every setup on this channel.</div>
         <div class="aff-link">Get Started →</div>
       </a>
+
       <a href="https://shop.ledger.com/?r=a9a1a63e8bf3" target="_blank" class="affiliate-card">
         <div class="aff-label">Hardware Wallet</div>
         <div class="aff-name">Ledger</div>
         <div class="aff-desc">Keep your crypto secure. Not your keys, not your coins.</div>
         <div class="aff-link">Shop Ledger →</div>
       </a>
+
       <a href="https://coinledger.io?fpr=btcrichesdaily98" target="_blank" class="affiliate-card">
         <div class="aff-label">Crypto Taxes</div>
         <div class="aff-name">CoinLedger</div>
         <div class="aff-desc">Automatically calculate and file your crypto taxes.</div>
         <div class="aff-link">Try CoinLedger →</div>
       </a>
+
+    </div>
+  </div>
+
+  <div class="email-section" id="newsletter">
+    <div class="email-inner">
+      <div>
+        <div class="email-label">Free Newsletter</div>
+        <h2>GET THE<br>DAILY BLAZE</h2>
+        <p>One email. Top crypto setups and market moves delivered daily. No spam, no fluff — ever.</p>
+      </div>
+      <div>
+        <div class="email-form">
+          <input class="email-input" type="email" placeholder="your@email.com" id="email-input" />
+          <button class="email-btn" onclick="handleEmail()">Subscribe</button>
+        </div>
+        <div class="email-success" id="email-success">✓ You're in — check your inbox.</div>
+      </div>
     </div>
   </div>
 
@@ -472,6 +569,21 @@
     </div>
     <div class="footer-copy">© 2026 Elevation Holdings LLC. All rights reserved.</div>
   </footer>
+
+  <script>
+    function handleEmail() {
+      const input = document.getElementById('email-input');
+      const success = document.getElementById('email-success');
+      if (input.value && input.value.includes('@')) {
+        input.style.display = 'none';
+        document.querySelector('.email-btn').style.display = 'none';
+        success.style.display = 'block';
+      }
+    }
+    document.getElementById('email-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleEmail();
+    });
+  </script>
 
 </body>
 </html>
